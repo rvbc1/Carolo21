@@ -12,6 +12,7 @@
 class PID {
 public:
 	PID();
+	PID(uint16_t KP);
 	virtual ~PID();
 	void setkp (uint16_t KP);
 	uint16_t getOutput();

@@ -16,11 +16,18 @@ void PID::pid () {
 	output = 1 ;
 }
 uint16_t PID::getOutput(){
-	return pid();
+	pid();
+	return output;
 }
 PID::PID() {
+	ki = 0;
+	kp = 0;
+	kd = 0;
 	// TODO Auto-generated constructor stub
 
+}
+PID::PID(uint16_t KP){
+	kp = KP;
 }
 
 PID::~PID() {

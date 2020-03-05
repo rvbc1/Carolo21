@@ -61,6 +61,7 @@
 #include "usb_device.h"
 #include "wwdg.h"
 #include "gpio.h"
+#include "PID.h"
 
 /* USER CODE BEGIN Includes */
 #include "USBLink.h" */
@@ -78,6 +79,7 @@ void checkForBootLoaderRequest(void);
 /* USER CODE END PFP */
 
 /* USER CODE BEGIN 0 */
+
 
 /* USER CODE END 0 */
 
@@ -127,6 +129,16 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
+  PID pid_motor;
+  pid_motor.setkp(10);
+
+  PID pid_servo;
+  pid_servo.setkp(11);
+
+//  servo.setAngle(pid_servo.getOutput());
+//  motor.setSpeed(pid_motor.getOutput());
+
+
   while (true)
   {
 

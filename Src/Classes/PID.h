@@ -13,9 +13,14 @@ class PID {
 public:
 	PID();
 	virtual ~PID();
+	void setkp (uint16_t KP);
+	uint16_t getOutput();
+
 private:
 	uint16_t kp, kd, ki ;
 
 };
+
+
 
 #endif /* CLASSES_PID_H_ */

@@ -65,7 +65,7 @@
 /* USER CODE BEGIN Includes */
 #include "USBLink.h" */
 /* Private variables ---------------------------------------------------------*/
-//test
+
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/

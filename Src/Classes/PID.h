@@ -16,8 +16,10 @@ public:
 	void setkp (uint16_t KP);
 	uint16_t getOutput();
 
+
 private:
-	uint16_t kp, kd, ki ;
+	uint16_t kp, kd, ki , output;
+	void pid() ;
 
 };
 

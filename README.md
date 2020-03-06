@@ -6,10 +6,10 @@ C++ Software for Selfie Autonomous Car low-level-HW controller (STM32 F7)
 
 1) Forkuj repo na swoje konto
 2) clone repo na lokalny folder
-- git clone https://github.com/your-login/Selfie-Carolo2020-STM
+- git clone https://github.com/your-login/Carolo21
 3) skonfiguruj remote repo "main"
 - cd Selfie-Carolo2020-STM
-- git remote add main https://github.com/Jarzyn1/Selfie-Carolo2020-STM
+- git remote add main https://github.com/rvbc1/Carolo21
 4) Teraz masz skonfigurowane 2 remote repos.
 - git remote -v
 "main" wskazujący na Jarzyn1

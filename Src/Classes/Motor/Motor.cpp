@@ -13,7 +13,7 @@
 #include "tim.h"
 #include "Encoder.h"
 #include "../../Tasks&Callbacks/AllTasks.h"
-
+#include "PID.h"
 
 
 #define ELM 100
@@ -81,9 +81,33 @@ void Motor::Process(void) {
 	if (tim_running)
 #endif
 		Output();
-
+	PID *pid;
+	//PID pin_strong;
+	//pin_strong.setKp(100);
+	pid->setKp(15);
 	osDelay(3);
 	//osDelay(_dt * 1000.f);
+
+	uint8_t error;
+	uint8_t set;
+	uint8_t measured;
+	uint8_t last_error;
+
+	error=set-measured;
+
+	proportional=kp*error;
+
+	integral+=error*dt;
+	intergral=ki*integral;
+
+	derivative = (error-last_error)/dt;
+	derivative = kd*derivative;
+
+	output=proportional+derivative+integrel;
+
+
+	last_error=error;
+
 }
 
 

@@ -15,6 +15,13 @@ kd=0;
 
 }
 
+void PID::setKp(uint8_t KP){
+	if(KP > 100) kp = 100;
+	else kp = KP;
+}
+
+
+
 PID::~PID() {
 	// TODO Auto-generated destructor stub
 }

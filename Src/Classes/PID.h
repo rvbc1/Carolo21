@@ -15,10 +15,19 @@ public:
 	PID();
 	virtual ~PID();
 	void setKp(uint8_t KP);
-	uint8_t integral, proportional, derivative;
+	void setKi(uint8_t KI);
+	void setKd(uint8_t KD);
+	void measure(uint8_t M);
+	void SET(uint8_t S);
+	void calculate();
+	void setDt(uint8_t DT);
+	uint8_t integral, proportional, derivative,output;
+
 private:
 	uint8_t kp, ki, kd, dt;
-
+	uint8_t set;
+	uint8_t measured;
+	uint8_t last_error;
 };
 
 

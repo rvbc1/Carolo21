@@ -88,25 +88,15 @@ void Motor::Process(void) {
 	osDelay(3);
 	//osDelay(_dt * 1000.f);
 
-	uint8_t error;
-	uint8_t set;
-	uint8_t measured;
-	uint8_t last_error;
+	pid->setKi(15);
+	pid->setKd(15);
+	pid->setDt(1);
 
-	error=set-measured;
+	pid->measure(100);
+	pid->SET(120);
 
-	proportional=kp*error;
+	pid->calculate();
 
-	integral+=error*dt;
-	intergral=ki*integral;
-
-	derivative = (error-last_error)/dt;
-	derivative = kd*derivative;
-
-	output=proportional+derivative+integrel;
-
-
-	last_error=error;
 
 }
 

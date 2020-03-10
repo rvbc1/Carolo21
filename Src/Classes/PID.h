@@ -12,7 +12,8 @@
 
 class PID {
 public:
-	PID(float kp, float ki, float kd);
+	PID(float kp = 0.0f, float ki = 0.0f, float kd = 0.0f);
+
 	virtual ~PID();
 	void setKp(float KP);
 	void setKi(float KI);

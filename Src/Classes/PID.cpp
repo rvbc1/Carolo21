@@ -8,9 +8,28 @@
 #include <PID.h>
 
 PID::PID(float kp, float ki, float kd) {
+
 	this->kp = kp;
+	if(kp == 0.0f){
+		proportional_enable = false;
+	} else {
+		proportional_enable = true;
+	}
+
 	this->ki = ki;
+	if(ki == 0.0f){
+		integral_enable = false;
+	} else {
+		integral_enable = true;
+	}
+
 	this->kd = kd;
+	if(kp == 0.0f){
+		derivative_enable = false;
+	} else {
+		derivative_enable = true;
+	}
+
 }
 
 void PID::calculate(){

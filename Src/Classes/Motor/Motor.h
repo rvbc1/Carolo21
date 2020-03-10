@@ -14,6 +14,7 @@
 #include "stdint.h"
 #include "Filters.h"
 #include "Mathematics.h"
+#include <PID.h>
 
 #ifdef VESC
 #include "crc.h"
@@ -68,6 +69,8 @@ class Motor {
 	float set_jerk = 0.f;
 
 	float set_rpm = 0.f;
+
+	PID *pid;
 
 	void Read(void);
 	void Conversions(void);

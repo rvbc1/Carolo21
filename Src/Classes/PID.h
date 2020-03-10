@@ -21,7 +21,9 @@ public:
 	void setKd(float KD);
 	void measure(uint8_t M);
 	void set(float S);
-	void calculate();
+
+	float getCV(float pv, float sp);
+
 	void setDt(float DT);
 
 	void enableP(uint8_t enable = true);
@@ -39,6 +41,8 @@ private:
 
 	int32_t now_time;
 	int32_t before_time;
+
+	void calculate();
 };
 
 

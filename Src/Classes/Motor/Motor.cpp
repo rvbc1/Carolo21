@@ -95,7 +95,7 @@ void Motor::Process(void) {
 	pid->measure(100);
 	pid->set(120);
 
-	pid->calculate();
+//	pid->calculate();
 
 
 }

@@ -93,6 +93,10 @@ void PID::set(float S){
 	set_point=S;
 }
 
+float getCV(float pv, float sp){
+	return 0.0f;
+}
+
 void PID::enableP(uint8_t enable) {
 	proportional_enable = enable;
 }

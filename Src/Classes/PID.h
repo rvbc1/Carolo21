@@ -12,22 +12,24 @@
 
 class PID {
 public:
-	PID();
+	PID(float proportional, float integral, float derivative);
 	virtual ~PID();
-	void setKp(uint8_t KP);
-	void setKi(uint8_t KI);
-	void setKd(uint8_t KD);
+	void setKp(float KP);
+	void setKi(float KI);
+	void setKd(float KD);
 	void measure(uint8_t M);
-	void SET(uint8_t S);
+	void set(float S);
 	void calculate();
-	void setDt(uint8_t DT);
-	uint8_t integral, proportional, derivative,output;
+	void setDt(float DT);
+
 
 private:
-	uint8_t kp, ki, kd, dt;
-	uint8_t set;
-	uint8_t measured;
-	uint8_t last_error;
+	uint8_t proportional_enable, integral_enable, derivative_enable;
+	float integral, proportional, derivative,output;
+	float kp, ki, kd, dt;
+	float set_point;
+	float measured;
+	float last_error;
 };
 
 

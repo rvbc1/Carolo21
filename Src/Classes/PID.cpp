@@ -34,7 +34,15 @@ PID::PID(float kp, float ki, float kd) {
 	this->dt = 0;
 	now_time = tools.GetMicros();
 	before_time = tools.GetMicros();
-//	dt = constrainf((now - before) * 1e-6F, (_dt/2), (_dt*2));
+
+	integral = 0.0f;
+	proportional = 0.0f;
+	derivative = 0.0f;
+	output = 0.0f;
+	set_point = 0.0f;
+	measured = 0.0f;
+	last_error = 0.0f;
+	//	dt = constrainf((now - before) * 1e-6F, (_dt/2), (_dt*2));
 }
 
 void PID::calculate(){
@@ -83,6 +91,18 @@ void PID::measure(uint8_t M){
 
 void PID::set(float S){
 	set_point=S;
+}
+
+void PID::enableP(uint8_t enable) {
+	proportional_enable = enable;
+}
+
+void PID::enableI(uint8_t enable) {
+	integral_enable = enable;
+}
+
+void PID::enableD(uint8_t enable) {
+	derivative_enable = enable;
 }
 
 PID::~PID() {

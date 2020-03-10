@@ -24,6 +24,10 @@ public:
 	void calculate();
 	void setDt(float DT);
 
+	void enableP(uint8_t enable = true);
+	void enableI(uint8_t enable = true);
+	void enableD(uint8_t enable = true);
+
 
 private:
 	uint8_t proportional_enable, integral_enable, derivative_enable;

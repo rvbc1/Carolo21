@@ -12,17 +12,24 @@
 #include <Tools.h>
 
 class PID {
+
 public:
 	PID(float kp = 0.0f, float ki = 0.0f, float kd = 0.0f);
 
 	virtual ~PID();
-	void setKp(float KP);
-	void setKi(float KI);
-	void setKd(float KD);
-	void measure(uint8_t M);
-	void set(float S);
-	void calculate();
-	void setDt(float DT);
+	void setKp(float kp);
+	void setKi(float ki);
+	void setKd(float kd);
+
+	void setSP(float sp);
+
+	float getCV(float pv);
+	float getCV(float pv, float sp);
+
+
+	void enableP(uint8_t enable = true);
+	void enableI(uint8_t enable = true);
+	void enableD(uint8_t enable = true);
 
 
 private:
@@ -35,6 +42,8 @@ private:
 
 	int32_t now_time;
 	int32_t before_time;
+
+	float calculate();
 };
 
 

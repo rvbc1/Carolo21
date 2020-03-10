@@ -45,56 +45,56 @@ PID::PID(float kp, float ki, float kd) {
 	//	dt = constrainf((now - before) * 1e-6F, (_dt/2), (_dt*2));
 }
 
-void PID::calculate(){
-	uint8_t error;
-	uint8_t output;
+float PID::calculate(){
+	float error;
+	float output;
 
-	error=set_point-measured;
+	error = set_point - measured;
 
-	proportional=kp*error;
+	if(proportional_enable){
+		proportional = kp * error;
+	}
 
-	integral+=error*dt;
-	integral=ki*integral;
+	if(integral_enable){
+		integral += error * dt;
+		integral = ki * integral;
+	}
 
-	derivative = (error-last_error)/dt;
-	derivative = kd*derivative;
-
-	output=proportional+derivative+integral;
-
+	if(derivative_enable){
+		derivative = (error-last_error)/dt;
+		derivative = kd*derivative;
+	}
 
 	last_error=error;
 
+	return output=proportional+derivative+integral;
 }
 
-void PID::setKp(float KP){
-	if(KP > 100) kp = 100;
-	else kp = KP;
+void PID::setKp(float kp){
+	this->kp = kp;
 }
 
-void PID::setKi(float KI){
-	if(KI > 100) ki = 100;
-	else ki = KI;
+void PID::setKi(float ki){
+	this->ki = ki;
 }
 
-void PID::setKd(float KD){
-	if(KD > 100) kd = 100;
-	else kd = KD;
+void PID::setKd(float kd){
+	this->kd = kd;
 }
 
-void PID::setDt(float DT){
-	dt = DT;
+void PID::setSP(float sp){
+	set_point = sp;
 }
 
-void PID::measure(uint8_t M){
-	measured=M;
+float PID::getCV(float pv){
+	measured = pv;
+	return calculate();
 }
 
-void PID::set(float S){
-	set_point=S;
-}
-
-float getCV(float pv, float sp){
-	return 0.0f;
+float PID::getCV(float pv, float sp){
+	measured = pv;
+	set_point = sp;
+	return calculate();
 }
 
 void PID::enableP(uint8_t enable) {

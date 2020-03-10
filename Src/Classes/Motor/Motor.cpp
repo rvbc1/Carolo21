@@ -93,7 +93,7 @@ void Motor::Process(void) {
 	pid->setDt(1);
 
 	pid->measure(100);
-	pid->set(120);
+	pid->setSP(120);
 
 //	pid->calculate();
 

@@ -7,13 +7,10 @@
 
 #include <PID.h>
 
-PID::PID(float proportional, float integral, float derivative) {
-
-	kp=0;
-	ki=0;
-	kd=0;
-	dt=1;
-	last_error=0;
+PID::PID(float kp, float ki, float kd) {
+	this->kp = kp;
+	this->ki = ki;
+	this->kd = kd;
 }
 
 void PID::calculate(){

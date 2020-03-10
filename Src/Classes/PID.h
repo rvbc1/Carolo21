@@ -12,7 +12,7 @@
 
 class PID {
 public:
-	PID(float proportional, float integral, float derivative);
+	PID(float kp, float ki, float kd);
 	virtual ~PID();
 	void setKp(float KP);
 	void setKi(float KI);

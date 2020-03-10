@@ -9,6 +9,7 @@
 #define CLASSES_PID_H_
 
 #include "main.h"
+#include <Tools.h>
 
 class PID {
 public:
@@ -31,6 +32,9 @@ private:
 	float set_point;
 	float measured;
 	float last_error;
+
+	int32_t now_time;
+	int32_t before_time;
 };
 
 

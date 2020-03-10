@@ -7,6 +7,7 @@
 
 #include <PID.h>
 
+
 PID::PID(float kp, float ki, float kd) {
 
 	this->kp = kp;
@@ -30,6 +31,10 @@ PID::PID(float kp, float ki, float kd) {
 		derivative_enable = true;
 	}
 
+	this->dt = 0;
+	now_time = tools.GetMicros();
+	before_time = tools.GetMicros();
+//	dt = constrainf((now - before) * 1e-6F, (_dt/2), (_dt*2));
 }
 
 void PID::calculate(){

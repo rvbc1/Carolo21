@@ -10,6 +10,7 @@
 
 #include "main.h"
 #include <Tools.h>
+#include <Mathematics.h>
 
 class PID {
 
@@ -33,6 +34,8 @@ public:
 
 
 private:
+	const float _dt = 0.002f;
+
 	uint8_t proportional_enable, integral_enable, derivative_enable;
 	float integral, proportional, derivative,output;
 	float kp, ki, kd, dt;

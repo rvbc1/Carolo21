@@ -90,9 +90,9 @@ void Motor::Process(void) {
 
 	pid->setKi(15);
 	pid->setKd(15);
-	pid->setDt(1);
+//	pid->setDt(1);
 
-	pid->measure(100);
+//	pid->measure(100);
 	pid->setSP(120);
 
 //	pid->calculate();

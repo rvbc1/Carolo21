@@ -9,25 +9,32 @@
 #define CLASSES_PID_H_
 
 #include "main.h"
+#include <Tools.h>
 
 class PID {
 public:
-	PID();
+	PID(float kp = 0.0f, float ki = 0.0f, float kd = 0.0f);
+
 	virtual ~PID();
-	void setKp(uint8_t KP);
-	void setKi(uint8_t KI);
-	void setKd(uint8_t KD);
+	void setKp(float KP);
+	void setKi(float KI);
+	void setKd(float KD);
 	void measure(uint8_t M);
-	void SET(uint8_t S);
+	void set(float S);
 	void calculate();
-	void setDt(uint8_t DT);
-	uint8_t integral, proportional, derivative,output;
+	void setDt(float DT);
+
 
 private:
-	uint8_t kp, ki, kd, dt;
-	uint8_t set;
-	uint8_t measured;
-	uint8_t last_error;
+	uint8_t proportional_enable, integral_enable, derivative_enable;
+	float integral, proportional, derivative,output;
+	float kp, ki, kd, dt;
+	float set_point;
+	float measured;
+	float last_error;
+
+	int32_t now_time;
+	int32_t before_time;
 };
 
 

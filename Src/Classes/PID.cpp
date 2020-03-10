@@ -7,21 +7,41 @@
 
 #include <PID.h>
 
-PID::PID() {
-	// TODO Auto-generated constructor stub
-	kp=0;
-	ki=0;
-	kd=0;
-	dt=1;
-	last_error=0;
 
+PID::PID(float kp, float ki, float kd) {
+
+	this->kp = kp;
+	if(kp == 0.0f){
+		proportional_enable = false;
+	} else {
+		proportional_enable = true;
+	}
+
+	this->ki = ki;
+	if(ki == 0.0f){
+		integral_enable = false;
+	} else {
+		integral_enable = true;
+	}
+
+	this->kd = kd;
+	if(kp == 0.0f){
+		derivative_enable = false;
+	} else {
+		derivative_enable = true;
+	}
+
+	this->dt = 0;
+	now_time = tools.GetMicros();
+	before_time = tools.GetMicros();
+//	dt = constrainf((now - before) * 1e-6F, (_dt/2), (_dt*2));
 }
 
 void PID::calculate(){
 	uint8_t error;
 	uint8_t output;
 
-	error=set-measured;
+	error=set_point-measured;
 
 	proportional=kp*error;
 
@@ -38,22 +58,22 @@ void PID::calculate(){
 
 }
 
-void PID::setKp(uint8_t KP){
+void PID::setKp(float KP){
 	if(KP > 100) kp = 100;
 	else kp = KP;
 }
 
-void PID::setKi(uint8_t KI){
+void PID::setKi(float KI){
 	if(KI > 100) ki = 100;
 	else ki = KI;
 }
 
-void PID::setKd(uint8_t KD){
+void PID::setKd(float KD){
 	if(KD > 100) kd = 100;
 	else kd = KD;
 }
 
-void PID::setDt(uint8_t DT){
+void PID::setDt(float DT){
 	dt = DT;
 }
 
@@ -61,8 +81,8 @@ void PID::measure(uint8_t M){
 	measured=M;
 }
 
-void PID::SET(uint8_t S){
-	set=S;
+void PID::set(float S){
+	set_point=S;
 }
 
 PID::~PID() {

@@ -42,32 +42,39 @@ PID::PID(float kp, float ki, float kd) {
 	set_point = 0.0f;
 	measured = 0.0f;
 	last_error = 0.0f;
-	//	dt = constrainf((now - before) * 1e-6F, (_dt/2), (_dt*2));
 }
 
 float PID::calculate(){
 	float error;
-	float output;
+	float output = 0.0f;
 
 	error = set_point - measured;
 
+
 	if(proportional_enable){
 		proportional = kp * error;
+		output += proportional;
 	}
+
+	now_time = tools.GetMicros();
+	dt = constrainf((now_time - before_time) * 1e-6F, (_dt/2), (_dt*2));
+	before_time = now_time;
 
 	if(integral_enable){
 		integral += error * dt;
 		integral = ki * integral;
+		output += integral;
 	}
 
 	if(derivative_enable){
 		derivative = (error-last_error)/dt;
 		derivative = kd*derivative;
+		output += derivative;
 	}
 
-	last_error=error;
+	last_error = error;
 
-	return output=proportional+derivative+integral;
+	return output;
 }
 
 void PID::setKp(float kp){

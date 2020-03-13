@@ -77,26 +77,26 @@ void Motor::Init(){
 void Motor::Process(void) {
 	SpeedTracking();
 	Controller();
+	pid = new PID(Kp, Ki, Kd);
 #ifdef PWM_ESC
 	if (tim_running)
 #endif
 		Output();
-	PID *pid;
+	//PID *pid;
 	//PID pin_strong;
 	//pin_strong.setKp(100);
-	pid->setKp(15);
+//	pid->setKp(15);
 	osDelay(3);
 	//osDelay(_dt * 1000.f);
 
-	pid->setKi(15);
-	pid->setKd(15);
-	pid->setDt(1);
+//	pid->setKi(15);
+//	pid->setKd(15);
+//	pid->setDt(1);
 
-	pid->measure(100);
-	pid->setSP(120);
+//	pid->measure(100);
+//	pid->setSP(120);
 
 //	pid->calculate();
-
 
 }
 
@@ -104,54 +104,57 @@ void Motor::Process(void) {
 
 void Motor::Controller(void){
 
-	static float previous_error = 0;
+//	static float previous_error = 0;
+//
+//	int32_t now = tools.GetMicros();
+//	static int32_t before = now;
+//	float dt = constrainf((now - before) * 1e-6F, (_dt/2), (_dt*2));
+//
+//	before = now;
+//
+//	set_rpm = current_set_velocity / encoder.getRPM_To_mms_Rate();
+//
+//	float setpoint = current_set_velocity;
+//	float measurement = encoder.getVelocity();
+//
+//
+//	float error = setpoint - measurement;
 
-	int32_t now = tools.GetMicros();
-	static int32_t before = now;
-	float dt = constrainf((now - before) * 1e-6F, (_dt/2), (_dt*2));
-
-	before = now;
-
-	set_rpm = current_set_velocity / encoder.getRPM_To_mms_Rate();
-
-	float setpoint = current_set_velocity;
-	float measurement = encoder.getVelocity();
-
-
-	float error = setpoint - measurement;
-
-	if(measurement > 1000){
-		Proportional = Kp * error * 1.2;
+	//if(measurement > 1000){
+	//	Proportional = Kp * error * 1.2;
 		//	} else if(setpoint >1000){
 		//		Proportional = Kp * error * 1.3;
-	} else {
-		Proportional = Kp * error;
-	}
+	//} else {
+//		Proportional = Kp * error;
+	//}
 
 
-	Integral += Ki *error * dt;
-	Integral = constrainf(Integral, -windup_limit, windup_limit);
+//	Integral += Ki *error * dt;
+//	Integral = constrainf(Integral, -windup_limit, windup_limit);
+//
+//	Derivative = Kd * dterm_lpf.apply(error - previous_error) / dt;
+//	previous_error = error;
 
-	Derivative = Kd * dterm_lpf.apply(error - previous_error) / dt;
-	previous_error = error;
+
 
 	if (controller_en) {
 		float vBatScaling = 1.f;
 		if (powermanager.voltage > 6.f)
 			vBatScaling = 8.4f / powermanager.voltage;
-		pid_value = vBatScaling * (Proportional + Integral + Derivative);
+		//pid_value = vBatScaling * (Proportional + Integral + Derivative);
+		pid_value = vBatScaling * (pid->getCV(encoder.getVelocity(), current_set_velocity));
 		pid_value += SIGNF(pid_value) * duty_deadband;
 		pid_value = constrainf(pid_value, -1.f, 1.f);
 	} else {
-		previous_error = 0.f;
+		//previous_error = 0.f;
 		Integral = 0.f;
 		pid_value = 0.f;
 	}
 
-	if (setpoint < 150 && setpoint > -150) {
-		pid_value = 0.f;
-		Integral = 0.f;
-	}
+//	if (setpoint < 150 && setpoint > -150) {
+//		pid_value = 0.f;
+//		Integral = 0.f;
+//	}
 }
 void Motor::Arm(void) {
 	controller_en = true;

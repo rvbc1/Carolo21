@@ -28,6 +28,7 @@ extern osThreadId MotorControllerHandle;
 extern osThreadId BuzzerTaskHandle;
 extern osThreadId OdometryTaskHandle;
 extern osThreadId OLEDTaskHandle;
+extern osThreadId OledSSDTaskHandle;
 
 
 

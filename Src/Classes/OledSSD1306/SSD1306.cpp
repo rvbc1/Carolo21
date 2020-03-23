@@ -6,7 +6,7 @@
  */
 
 
-#include "SSD1306.h"
+#include <OledSSD1306/SSD1306.h>
 
 #if defined(SSD1306_USE_I2C)
 void SSD1306::ssd1306_Reset(void) {

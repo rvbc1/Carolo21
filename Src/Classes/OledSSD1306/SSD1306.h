@@ -13,10 +13,12 @@
 
 #include <cstddef>
 #include "_ansi.h"
-#include "SSD1306_font.h"
+#include <OledSSD1306/SSD1306_font.h>
+#include "../../Tasks&Callbacks/AllTasks.h"
 
 
-#define STM32F3
+
+#define STM32F7
 #if defined(STM32F1)
 #include "stm32f1xx_hal.h"
 #elif defined(STM32F4)

@@ -13,8 +13,9 @@
 
 #include <cstddef>
 #include "_ansi.h"
-#include <OledSSD1306/SSD1306_font.h>
+#include "SSD1306_font.h"
 #include "../../Tasks&Callbacks/AllTasks.h"
+#include "main.h"
 
 
 
@@ -34,7 +35,7 @@
 #elif defined(STM32F7)
 #include "stm32f7xx_hal.h"
 #else
- #error "SSD1306 library was tested only on STM32F1, STM32F3, STM32F4, STM32F7, STM32L0, STM32L4, STM32H7 MCU families. Please modify ssd1306.h if you know what you are doing. Also please send a pull request if it turns out the library works on other MCU's as well!"
+ #error "define kind of STM"
 #endif
 
 
@@ -52,7 +53,7 @@
 
 /* vvv SPI config vvv */
 #ifndef SSD1306_SPI_PORT
-#define SSD1306_SPI_PORT        hspi2
+#define SSD1306_SPI_PORT        hspi1
 #endif
 
 #ifndef SSD1306_CS_Port
@@ -120,6 +121,7 @@ public:
 	void ssd1306_Reset(void);
 	void ssd1306_WriteCommand(uint8_t byte);
 	void ssd1306_WriteData(uint8_t* buffer, size_t buff_size);
+	void ssd1306_Process();
 private:
     uint16_t currentX;
     uint16_t currentY;
@@ -127,6 +129,6 @@ private:
     uint8_t initialized;
 };
 
-
+extern SSD1306 oledSSD;
 #endif /* APPLICATION_USER_SSD1306_H_ */
 #endif // __SSD1306_H__

@@ -263,9 +263,9 @@ void StartOLEDTask(void const * argument){
 }
 
 void StartOledSSDTask(void const * argument){
-	oledSSD.Init();
+	oledSSD.ssd1306_Init();
 	while(true){
-		oledSSD.process();
+		oledSSD.ssd1306_Process();
 	}
 }
 

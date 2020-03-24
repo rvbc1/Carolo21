@@ -53,7 +53,7 @@ void SSD1306::ssd1306_WriteData(uint8_t* buffer, size_t buff_size) {
 
 // Screenbuffer
 static uint8_t SSD1306_Buffer[SSD1306_WIDTH * SSD1306_HEIGHT / 8];
-
+SSD1306 oledSSD;
 void SSD1306::ssd1306_Init(void) {
 	// Reset OLED
 	ssd1306_Reset();
@@ -143,6 +143,13 @@ void SSD1306::ssd1306_Init(void) {
     currentY = 0;
 
     initialized = 1;
+}
+
+void SSD1306::ssd1306_Process(){
+	//text
+
+	ssd1306_UpdateScreen();
+	osDelay(5);
 }
 
 // Fill the whole screen with the given color

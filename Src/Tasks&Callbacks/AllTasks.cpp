@@ -28,6 +28,7 @@
 #include "Odometry.h"
 #include "crc.h"
 #include "OLED.h"
+#include "SSD1306.h"
 #include "ButtonsManager.h"
 #include "Mathematics.h"
 #include "tim.h"
@@ -44,9 +45,10 @@ osThreadId FutabaTaskHandle;
 osThreadId TelemetryTaskHandle;
 osThreadId USBLinkTaskHandle;
 osThreadId MotorControllerHandle;
-osThreadId BuzzerTaskHandle;
 osThreadId OdometryTaskHandle;
 osThreadId OLEDTaskHandle;
+osThreadId OledSSDTaskHandle;
+osThreadId BuzzerTaskHandle;
 osThreadId LightsTaskHandle;
 osThreadId ButtonsTaskHandle;
 osThreadId WatchDogsTaskHandle;
@@ -69,6 +71,7 @@ void StartTelemetryTask(void const * argument);
 void StartMotorController(void const * argument);
 void StartBuzzerTask(void const * argument);
 void StartOLEDTask(void const * argument);
+void StartOledSSDTask(void const * argument);
 void StartLightsTask(void const * argument);
 void StartButtonsTask(void const * argument);
 void StartWatchDogsTask(void const * argument);
@@ -128,6 +131,10 @@ void Allshit_begin(void) {
 	/* OLED - LOW PRIORITY */
 //	osThreadDef(OLEDTask, StartOLEDTask, osPriorityLow, 0, 256);
 //	OLEDTaskHandle = osThreadCreate(osThread(OLEDTask), NULL);
+
+	/* OledSSD - LOW PRIORITY */
+	osThreadDef(OledSSDTask, StartOledSSDTask, osPriorityLow, 0, 256);
+	OledSSDTaskHandle = osThreadCreate(osThread(OledSSDTask), NULL);
 
 	/* Lights - ws2812 - MEDIUM PRIORITY */
 	osThreadDef(LightsTask, StartLightsTask, osPriorityNormal, 0, 1024);
@@ -255,6 +262,12 @@ void StartOLEDTask(void const * argument){
 	}
 }
 
+void StartOledSSDTask(void const * argument){
+	oledSSD.ssd1306_Init();
+	while(true){
+		oledSSD.ssd1306_Process();
+	}
+}
 
 void StartLightsTask(void const * argument){
 	lights_manager.ws2812_init();
